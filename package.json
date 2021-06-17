@@ -18,12 +18,12 @@
     "debug": "node --inspect-brk server"
   },
   "dependencies": {
-    "@live-change/cli": "^0.1.1",
-    "@live-change/dao": "^0.2.44",
-    "@live-change/dao-vue3": "^0.1.12",
-    "@live-change/dao-websocket": "^0.2.21",
-    "@live-change/vue-api": "^0.1.0",
-    "@live-change/vue3-components": "^0.1.0",
+    "@live-change/cli": "^0.1.2",
+    "@live-change/dao": "^0.3.3",
+    "@live-change/dao-vue3": "^0.1.14",
+    "@live-change/dao-websocket": "^0.3.1",
+    "@live-change/vue-api": "^0.1.2",
+    "@live-change/vue3-components": "^0.1.2",
     "@vitejs/plugin-vue": "^1.2.3",
     "@vitejs/plugin-vue-jsx": "^1.1.5",
     "@vue/compiler-sfc": "^3.1.1",
@@ -40,12 +40,12 @@
     "vue-router": "^4.0.8"
   },
   "devDependencies": {
-    "@wdio/selenium-standalone-service": "^7.7.0",
+    "@wdio/selenium-standalone-service": "^7.7.3",
     "codeceptjs": "^3.0.7",
-    "playwright": "^1.11.1",
+    "playwright": "^1.12.2",
     "random-profile-generator": "^2.3.0",
     "txtgen": "^2.2.8",
-    "webdriverio": "^7.7.2"
+    "webdriverio": "^7.7.3"
   },
   "author": "",
   "license": "ISC",

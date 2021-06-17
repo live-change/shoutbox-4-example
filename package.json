@@ -1,0 +1,53 @@
+{
+  "name": "shoutbox-3-example-e2e",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "memDev": "lcli ssrDev --ssrRoot front --withApi --withServices --updateServices --services server/services.config.js --enableSessions --withDb --dbBackend mem --createDb --initScript ./init.js",
+    "dev": "lcli ssrDev --ssrRoot front --withApi --withServices --updateServices --services server/services.config.js --enableSessions",
+    "ssrDev": "lcli ssrDev",
+    "serveAllMem": "cross-env NODE_ENV=production ../cli/bin/lcli.js ssrServer --ssrRoot front --withApi --withServices --updateServices --services server/services.config.js --enableSessions -withDb --dbBackend mem --createDb",
+    "serveAll": "cross-env NODE_ENV=production lcli ssrServer --ssrRoot front --withApi --withServices --updateServices --services server/services.config.js --enableSessions",
+    "serve": "cross-env NODE_ENV=production lcli ssrServer --ssrRoot front --enableSessions",
+    "apiServer": "lcli apiServer --withServices --updateServices --services server/services.config.js --enableSessions",
+    "memApiServer": "lcli apiServer --withServices --updateServices --services server/services.config.js --enableSessions --withDb --dbBackend mem --createDb",
+    "build": "cd front; yarn build:client && yarn build:server",
+    "build:client": "cd front; vite build --ssrManifest --outDir dist/client",
+    "build:server": "cd front; vite build --ssr src/entry-server.js --outDir dist/server",
+    "generate": "vite build --ssrManifest --outDir dist/static && yarn build:server && node prerender",
+    "debug": "node --inspect-brk server"
+  },
+  "dependencies": {
+    "@live-change/cli": "^0.1.1",
+    "@live-change/dao": "^0.2.44",
+    "@live-change/dao-vue3": "^0.1.12",
+    "@live-change/dao-websocket": "^0.2.21",
+    "@live-change/vue-api": "^0.1.0",
+    "@live-change/vue3-components": "^0.1.0",
+    "@vitejs/plugin-vue": "^1.2.3",
+    "@vitejs/plugin-vue-jsx": "^1.1.5",
+    "@vue/compiler-sfc": "^3.1.1",
+    "@vue/server-renderer": "^3.1.1",
+    "codeceptjs-assert": "^0.0.5",
+    "compression": "^1.7.4",
+    "cross-env": "^7.0.3",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "serialize-javascript": "^5.0.1",
+    "serve-static": "^1.14.1",
+    "vite": "^2.3.7",
+    "vue": "^3.1.1",
+    "vue-meta": "^3.0.0-alpha.9",
+    "vue-router": "^4.0.8"
+  },
+  "devDependencies": {
+    "@wdio/selenium-standalone-service": "^7.7.0",
+    "codeceptjs": "^3.0.7",
+    "playwright": "^1.11.1",
+    "random-profile-generator": "^2.3.0",
+    "txtgen": "^2.2.8",
+    "webdriverio": "^7.7.2"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

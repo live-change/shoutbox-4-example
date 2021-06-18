@@ -1,18 +1,28 @@
 const {  devices } = require('playwright');
 
+const testServerPort = process.env.TEST_URL ? 0 : require('get-port-sync')() 
+const testServerUrl = process.env.TEST_URL || `http://localhost:${testServerPort}`
+
 exports.config = {
   tests: './*.test.js',
   output: './output',
   helpers: {
+    LiveChange: {
+      require: '@live-change/codeceptjs-helper',
+      startServer: !process.env.TEST_URL,
+      enableSessions: true,
+      initScript: "./init.js",
+      port: testServerPort
+    },
     VideoHelper: {
       require: 'codeceptjs-video-helper'
     },
-    "AssertWrapper" : {
+    AssertWrapper : {
        "require": "codeceptjs-assert"
     },
     Playwright: {
       browser: 'chromium',
-      url: 'http://localhost:8001',
+      url: testServerUrl,
       show: true,
       emulate: {
         ...devices['Pixel 2'],
@@ -22,7 +32,7 @@ exports.config = {
       }
     }
     // WebDriver: {
-    //   url: 'http://localhost:8001',
+    //   url: testServerUrl,
     //   smartWait: 5000,
     //   browser: "chrome",
     //   restart: false,

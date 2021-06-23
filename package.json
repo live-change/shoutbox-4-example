@@ -19,7 +19,7 @@
     "debug": "node --inspect-brk server"
   },
   "dependencies": {
-    "@live-change/cli": "^0.1.5",
+    "@live-change/cli": "^0.1.6",
     "@live-change/dao": "^0.3.3",
     "@live-change/dao-vue3": "^0.1.14",
     "@live-change/dao-websocket": "^0.3.1",

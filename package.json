@@ -1,7 +1,7 @@
 {
   "name": "shoutbox-3-example",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "memDev": "lcli memDev --enableSessions --initScript ./init.js",
     "dev": "lcli dev --enableSessions",

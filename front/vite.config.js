@@ -49,6 +49,8 @@ module.exports = {
 
   resolve: {
     alias: [
+      { find: 'debug', replacement: 'debug/src/browser.js' },
+      { find: 'universal-websocket-client', replacement: 'universal-websocket-client/browser.js' },
       { find: 'sockjs-client', replacement: 'sockjs-client/dist/sockjs.min.js' }
       //{ find: '@live-change/framework-vue', replacement: path.resolve('../../framework-vue') },
       //{ find: '@live-change/framework-vue-api', replacement: path.resolve('../../framework-vue-api') },

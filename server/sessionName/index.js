@@ -16,7 +16,7 @@ const Name = service.model({
     name: {
       type: String,
       validation: ['nonEmpty']
-    }    
+    }
   }
 })
 
@@ -25,8 +25,8 @@ service.action({
   properties: {
     ...Name.properties
   },
-  async execute(properties, { client, service }, emit) {    
-    const id = app.generateUid()    
+  async execute(properties, { client, service }, emit) {
+    const id = app.generateUid()
     return await Name.create({ ...properties, id, session: client.session })
   }
 })

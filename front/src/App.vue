@@ -4,7 +4,7 @@
   </nav>
   <main>
     <router-view v-slot="{ Component }">
-      <loading-zone>
+      <loading-zone suspense>
         <template v-slot:loading>
           <div class="loading">Loading! Please wait!</div>
         </template>
@@ -46,9 +46,6 @@ export default {
         amp: true
       }
     }
-  },
-  reactive: {
-    session: ['session', 'currentSession']
   },
   computed: {
     api() {

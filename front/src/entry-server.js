@@ -1,14 +1,13 @@
-import { renderToString } from '@vue/server-renderer'
+import { renderToString } from 'vue/server-renderer'
 import { renderMetaToString } from 'vue-meta/ssr'
 
 import { serverApi } from '@live-change/vue3-ssr/serverApi.js'
-import apiSession from '@live-change/vue-api-session'
 
 import { createApp } from './main'
 
 export async function render({ url, dao, windowId }) {
   const api = await serverApi(dao, {
-    use: [apiSession]
+    use: [ ]
   })
 
   const { app, router } = createApp(api)

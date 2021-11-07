@@ -1,9 +1,8 @@
 import { createApp } from './main'
 import { clientApi } from '@live-change/vue3-ssr/clientApi.js'
-import apiSession from '@live-change/vue-api-session'
 
 window.api = clientApi({
-  use: [ apiSession ]
+  use: [  ]
 })
 
 const { app, router } = createApp(api)

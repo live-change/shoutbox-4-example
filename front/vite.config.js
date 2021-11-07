@@ -26,7 +26,6 @@ module.exports = {
       '@live-change/vue-api',
       '@live-change/vue-api-session',
       'debug',
-      '@vue/server-renderer',
       'vite'
     ],
     noExternal: [

@@ -13,7 +13,7 @@
     </command-form>
     <div class="messages">
       <scroll-loader :what="range => $views.shoutBox.messagesByTimestamp($api.reverseRange(range))"
-        v-slot:default="{ row: message, rows }" debugLog>
+        v-slot:default="{ row: message, rows }" noDebugLog>
         <div class="message">
           <observe :what="$views.sessionName.publicSessionName({ session: message.session })"
             v-slot="{ value: authorName }">
@@ -28,31 +28,33 @@
   </div>
 </template>
 
-<script>
-import { path, live } from '@live-change/vue3-ssr'
+<script setup>
+import { inject } from 'vue'
+import { path, live, actions } from '@live-change/vue3-ssr'
 
-export default {
-  inject: ['workingZone'],
-  async setup() {
-    const [ sessionName, firstMessages ] = await Promise.all([
-        live(
-            path().sessionName.sessionName()
-        ),
-        live(
-            path().shoutBox.messagesByTimestamp({ lt: "\xFF\xFF\xFF\xFF", limit: 20, reverse: true })
-                .with(msg => path().sessionName.publicSessionName({
-                  session: msg.session.$nonEmpty()
-                }).bind('sessionName'))
-        )
-    ])
-    return { sessionName, firstMessages }
-  },
-  methods: {
-    resetName() {
-      this.workingZone.addPromise('delete name', this.$actions.sessionName.resetSessionName())
-    }
-  }
+const workingZone = inject('workingZone')
+const resetSessionName = actions().sessionName.resetSessionName
+
+const [ sessionName, firstMessages ] = await Promise.all([
+  live(
+      path().sessionName.sessionName()
+  ),
+  live(
+      path().shoutBox.messagesByTimestamp({ lt: "\xFF\xFF\xFF\xFF", limit: 20, reverse: true })
+          .with(msg => path().sessionName.publicSessionName({
+            session: msg.session.$nonEmpty()
+          }).bind('sessionName'))
+  )
+])
+
+function resetName() {
+  workingZone.addPromise('delete name', resetSessionName())
 }
+
+function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)) }
+
+await sleep(500)
+
 </script>
 
 <style>

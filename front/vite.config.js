@@ -7,11 +7,11 @@ const vuePlugin = require('@vitejs/plugin-vue')
 module.exports = {
   plugins: [
     vuePlugin({
-      template: {
-        compilerOptions: {
-          whitespace: "preserve",
-        },
-      },
+      // template: {
+      //   compilerOptions: {
+      //     whitespace: "preserve",
+      //   },
+      // },
     })
   ],
   build: {

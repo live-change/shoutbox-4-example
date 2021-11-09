@@ -15,7 +15,7 @@
           <component :is="Component" />
         </working-zone>
       </loading-zone>
-    </router-view>  
+    </router-view>
   </main>
 </template>
 

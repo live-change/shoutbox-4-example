@@ -39,9 +39,9 @@ service.view({
       ...parameters,
       limit: (parameters.limit && parameters.limit < 100) ? parameters.limit : 100
     }
-    console.log("MESSAGES RANGE", parameters, '=>', range)
-    const result = await Message.sortedIndexRangeGet('byTimestamp', range)
-    console.log("GOT MESSAGES", result.lenght)
+    //console.log("MESSAGES RANGE", parameters, '=>', range)
+    //const result = await Message.sortedIndexRangeGet('byTimestamp', range)
+    //console.log("GOT MESSAGES", result.lenght)
     return Message.sortedIndexRangePath('byTimestamp', range)
   }
 })

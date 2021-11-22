@@ -1,6 +1,6 @@
 <template>
   <div class="shoutbox">
-    <command-form v-if="!sessionName" service="sessionName" action="setSessionName" v-slot="{ data }"
+    <command-form v-if="!sessionName" service="sessionName" action="setMySessionName" v-slot="{ data }"
                   class="nameForm">
       <input type="text" placeholder="Enter yout name..." v-model="data.name" />
       <button type="submit">Save</button>
@@ -11,37 +11,48 @@
       <input type="text" class="messageInput" placeholder="Write message..." v-model="data.text" />
       <button type="submit">Send!</button>
     </command-form>
+    <pre>
+      Buckets count {{ messagesBuckets.buckets.length }}
+    </pre>
     <div class="messages">
-      <scroll-loader :what="range => $views.shoutBox.messagesByTimestamp($api.reverseRange(range))"
-        v-slot:default="{ row: message, rows }" noDebugLog>
-        <div class="message">
-          <observe :what="$views.sessionName.publicSessionName({ session: message.session })"
-            v-slot="{ value: authorName }">
-            <div class="messageAuthor">
-              {{ authorName?.name }}
-            </div>
-          </observe>
+      <scroll-border placement="top"
+                     :load="messagesBuckets.loadTop"
+                     :canLoad="messagesBuckets.canLoadTop"
+                     :drop="messagesBuckets.dropTop" />
+      <div v-for="(bucket, bucketIndex) in messagesBuckets.buckets">
+        <div v-for="(message, index) in bucket.data" :key="message.id" :ref="el => bucket.domElements[index] = el"
+             class="message">
+          <div class="messageAuthor">
+            {{ message.sessionName?.name }}
+          </div>
           <p class="messageText">{{ message.text }}</p>
         </div>
-      </scroll-loader>
+      </div>
+      <scroll-border placement="bottom"
+                     :load="messagesBuckets.loadBottom"
+                     :canLoad="messagesBuckets.canLoadBottom"
+                     :drop="messagesBuckets.dropBottom" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { inject } from 'vue'
-import { path, live, actions } from '@live-change/vue3-ssr'
+import { inject, computed } from 'vue'
+import { path, live, actions, api, rangeBuckets, reverseRange } from '@live-change/vue3-ssr'
+import ScrollBorder from 'vue3-scroll-border'
+
+const services = api().metadata.api.services
 
 const workingZone = inject('workingZone')
-const resetSessionName = actions().sessionName.resetSessionName
+const resetSessionName = actions().sessionName.resetMySessionName
 
-const [ sessionName, firstMessages ] = await Promise.all([
+const [ sessionName, messagesBuckets ] = await Promise.all([
   live(
-      path().sessionName.sessionName()
+      path().sessionName.mySessionName()
   ),
-  live(
-      path().shoutBox.messagesByTimestamp({ lt: "\xFF\xFF\xFF\xFF", limit: 20, reverse: true })
-          .with(msg => path().sessionName.publicSessionName({
+  rangeBuckets((range, p) =>
+      p.shoutBox.messagesByTimestamp(reverseRange(range))
+          .with(msg => p.sessionName.sessionOwnedName({
             session: msg.session.$nonEmpty()
           }).bind('sessionName'))
   )
@@ -51,9 +62,15 @@ function resetName() {
   workingZone.addPromise('delete name', resetSessionName())
 }
 
+
+
+// const messages = computed(() => buckets.buckets.flatMap(b=> b?.data || []))
+
+if(typeof window != "undefined")  window.buckets = messagesBuckets
+
 function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)) }
 
-await sleep(500)
+//await sleep(500)
 
 </script>
 

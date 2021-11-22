@@ -10,10 +10,9 @@ module.exports = async function(services) {
 
   const sessions = []
   async function createRandomSession() {
-    const id = app.generateUid()
     const session = app.generateUid()
     const name = randomProfile.profile().fullName
-    await services.sessionName.models.Name.create({ id, session, name })
+    await services.sessionName.models.Name.create({ id: session, session, name })
     sessions.push(session)
   }
 

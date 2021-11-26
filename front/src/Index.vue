@@ -11,9 +11,6 @@
       <input type="text" class="messageInput" placeholder="Write message..." v-model="data.text" />
       <button type="submit">Send!</button>
     </command-form>
-    <pre>
-      Buckets count {{ messagesBuckets.buckets.length }}
-    </pre>
     <div class="messages">
       <scroll-border placement="top"
                      :load="messagesBuckets.loadTop"
@@ -58,19 +55,11 @@ const [ sessionName, messagesBuckets ] = await Promise.all([
   )
 ])
 
+// const messages = computed(() => buckets.buckets.flatMap(b=> b?.data || []))
+
 function resetName() {
   workingZone.addPromise('delete name', resetSessionName())
 }
-
-
-
-// const messages = computed(() => buckets.buckets.flatMap(b=> b?.data || []))
-
-if(typeof window != "undefined")  window.buckets = messagesBuckets
-
-function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)) }
-
-//await sleep(500)
 
 </script>
 

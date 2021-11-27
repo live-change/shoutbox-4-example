@@ -1,4 +1,4 @@
-const {  devices } = require('playwright');
+const { devices } = require('playwright');
 
 const testServerPort = process.env.TEST_URL ? 0 : require('get-port-sync')() 
 const testServerUrl = process.env.TEST_URL || `http://localhost:${testServerPort}`
@@ -18,7 +18,7 @@ exports.config = {
       require: 'codeceptjs-video-helper'
     },
     AssertWrapper : {
-       "require": "codeceptjs-assert"
+      require: "codeceptjs-assert"
     },
     Playwright: {
       browser: 'chromium',
@@ -31,17 +31,6 @@ exports.config = {
         } : undefined,
       }
     }
-    // WebDriver: {
-    //   url: testServerUrl,
-    //   smartWait: 5000,
-    //   browser: "chrome",
-    //   restart: false,
-    //   windowSize: "maximize",hi
-    //   timeouts: {
-    //     "script": 60000,
-    //     "page load": 10000
-    //   }
-    // }
   },
   include: {
     I: './steps_file.js'
@@ -60,10 +49,5 @@ exports.config = {
     screenshotOnFail: {
       enabled: true
     },
-    wdio: {
-        enabled: true,
-        services: ['selenium-standalone']
-        // additional config for service can be passed here
-    }
   }
 }

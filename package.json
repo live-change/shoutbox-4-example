@@ -1,5 +1,5 @@
 {
-  "name": "shoutbox-5-example",
+  "name": "shoutbox-6-example",
   "private": true,
   "version": "0.0.3",
   "scripts": {
@@ -15,6 +15,7 @@
     "build": "cd front; yarn build:client && yarn build:server",
     "build:client": "cd front; vite build --ssrManifest --outDir dist/client",
     "build:server": "cd front; vite build --ssr src/entry-server.js --outDir dist/server",
+    "e2e": "cd e2e; codeceptjs run",
     "generate": "vite build --ssrManifest --outDir dist/static && yarn build:server && node prerender",
     "debug": "node --inspect-brk server"
   },

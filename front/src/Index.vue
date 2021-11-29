@@ -14,9 +14,9 @@
     <div class="messages">
       <scroll-border placement="top"
                      :load="messagesBuckets.loadTop"
-                     :canLoad="messagesBuckets.canLoadTop"
-                     :drop="messagesBuckets.dropTop" />
-      <div v-for="(bucket, bucketIndex) in messagesBuckets.buckets">
+                     :canLoad="messagesBuckets.canLoadTop" />
+      <div v-for="(bucket, bucketIndex) in messagesBuckets.buckets" :key="bucket.id"
+           :style="{ background: `hsl(${bucket.id * 11}, 100%, 80%)` }">
         <div v-for="(message, index) in bucket.data" :key="message.id" :ref="el => bucket.domElements[index] = el"
              class="message">
           <div class="messageAuthor">
@@ -27,14 +27,13 @@
       </div>
       <scroll-border placement="bottom"
                      :load="messagesBuckets.loadBottom"
-                     :canLoad="messagesBuckets.canLoadBottom"
-                     :drop="messagesBuckets.dropBottom" />
+                     :canLoad="messagesBuckets.canLoadBottom" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { inject, computed } from 'vue'
+import { inject, computed, ref } from 'vue'
 import { path, live, actions, api, rangeBuckets, reverseRange } from '@live-change/vue3-ssr'
 import ScrollBorder from 'vue3-scroll-border'
 
@@ -55,18 +54,23 @@ const [ sessionName, messagesBuckets ] = await Promise.all([
   )
 ])
 
-// const messages = computed(() => buckets.buckets.flatMap(b=> b?.data || []))
-
 function resetName() {
   workingZone.addPromise('delete name', resetSessionName())
 }
 
+
 </script>
 
-<style>
+<style lang="scss">
   .shoutbox {
     display: flex;
     flex-direction: column;
+    position: absolute;
+    top: 50px;
+    bottom: 10px;
+    height: auto;
+    border: 2px solid black;
+
   }
   form {
     display: flex;
@@ -90,6 +94,8 @@ function resetName() {
     margin-top: 5px;
     flex-grow: 1;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
   }
   .message {
     margin: 2px;
@@ -111,5 +117,39 @@ function resetName() {
     vertical-align: center;
     padding: 4px;
     cursor: not-allowed;
+  }
+
+  .scroll-border-placement-bottom {
+    .drop-sensor {
+      left: 10px;
+      width: 10px;
+      background: red;
+      z-index: 100;
+      visibility: visible !important;
+    }
+    .load-sensor {
+      left: 30px;
+      width: 10px;
+      background: green;
+      z-index: 100;
+      visibility: visible !important;
+    }
+  }
+
+  .scroll-border-placement-top {
+    .drop-sensor {
+      right: 10px;
+      width: 10px;
+      background: red;
+      z-index: 100;
+      visibility: visible !important;
+    }
+    .load-sensor {
+      right: 30px;
+      width: 10px;
+      background: green;
+      z-index: 100;
+      visibility: visible !important;
+    }
   }
 </style>

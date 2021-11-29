@@ -24,7 +24,7 @@
     "@live-change/cli": "^0.1.11",
     "@live-change/codeceptjs-helper": "^0.1.0",
     "@live-change/dao": "^0.3.9",
-    "@live-change/dao-vue3": "^0.1.20",
+    "@live-change/dao-vue3": "^0.1.22",
     "@live-change/dao-websocket": "^0.3.1",
     "@live-change/session-service": "^0.1.7",
     "@live-change/vue-api": "^0.1.9",
